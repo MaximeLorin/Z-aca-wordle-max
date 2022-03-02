@@ -25,12 +25,11 @@ public class Round {
             System.out.println(i18n.getMessage("try_to_guess", this.wordToGuess.length()));
             tryGuess = this.scanner.next().toUpperCase();
 
-            valid =true;
-            if(tryGuess.length() != this.wordToGuess.length()) {
+            valid = true;
+            if (tryGuess.length() != this.wordToGuess.length()) {
                 System.out.println(i18n.getMessage("nb_letters_word_try", tryGuess.length()));
                 valid = false;
-            }
-            else if(!i18n.wordExists(tryGuess)) {
+            } else if (!i18n.wordExists(tryGuess)) {
                 System.out.println(i18n.getMessage("word_not_in_dictionary"));
                 valid = false;
             }

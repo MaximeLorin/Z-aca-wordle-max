@@ -3,7 +3,10 @@ package wordle.i18n;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.Normalizer;
-import java.util.*;
+import java.util.Locale;
+import java.util.Objects;
+import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class Fr extends AbstractI18n {
 
@@ -16,9 +19,9 @@ public class Fr extends AbstractI18n {
         ClassLoader classLoader = this.getClass().getClassLoader();
         String path = Objects.requireNonNull(classLoader.getResource("dico_fr.txt")).getPath();
         Scanner scanner = new Scanner(new File(path));
-        while(scanner.hasNext()) {
+        while (scanner.hasNext()) {
             String line = scanner.next();
-            if(line.length() > 3 && !line.contains("-") && line.length()<11) {
+            if (line.length() > 3 && !line.contains("-") && line.length() < 11) {
                 this.dictionary.add(this.removeAccent(line).toUpperCase());
             }
         }

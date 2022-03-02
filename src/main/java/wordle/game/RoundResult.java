@@ -22,6 +22,6 @@ public class RoundResult {
 
     public boolean isWin() {
         return Arrays.stream(this.validationLetters)
-                .allMatch((v) -> v==ValidationLetter.GOOD_POSITION);
+                .allMatch((v) -> v == ValidationLetter.GOOD_POSITION);
     }
 }

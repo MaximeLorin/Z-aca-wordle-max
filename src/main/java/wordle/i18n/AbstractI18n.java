@@ -22,6 +22,7 @@ public abstract class AbstractI18n implements I18n {
             return "[" + key + "]";
         }
     }
+
     @Override
     public String getMessage(String key, Object... params) {
         try {
@@ -34,7 +35,7 @@ public abstract class AbstractI18n implements I18n {
     @Override
     public String getRandomWord() {
         Random random = new Random();
-        int randomNumber = random.nextInt(dictionary.size())+1;
+        int randomNumber = random.nextInt(dictionary.size()) + 1;
         return dictionary.stream().skip(randomNumber).findFirst().orElse(null);
     }
 

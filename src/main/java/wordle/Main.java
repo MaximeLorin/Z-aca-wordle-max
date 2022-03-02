@@ -1,12 +1,10 @@
 package wordle;
 
 import wordle.game.Game;
-import wordle.game.RoundResult;
 import wordle.game.displayer.console.color.ConsoleColorDisplayer;
 import wordle.i18n.I18n;
 import wordle.i18n.I18nFactory;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {

@@ -18,7 +18,7 @@ public class ConsoleColorDisplayer implements Displayer {
             } else if (validationLetter == ValidationLetter.WRONG_POSITION) {
                 color = Color.BLUE_BACKGROUND + "" + Color.BLACK_WRITE;
             }
-            if(i==0) {
+            if (i == 0) {
                 validationConsoleColorText.append("|");
             }
             validationConsoleColorText.append(color);
