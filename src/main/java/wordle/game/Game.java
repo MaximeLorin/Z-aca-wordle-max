@@ -26,7 +26,7 @@ public class Game {
     public List<RoundResult> play() {
         while (this.roundResults.size() < NB_MAX_ROUND && !this.isWin()) {
             int nbTryLeft = NB_MAX_ROUND - this.roundResults.size();
-            System.out.println("Il vous reste " + nbTryLeft + " essai(s)");
+            System.out.println(i18n.getMessage("nb_try_left", nbTryLeft));
             if(!this.roundResults.isEmpty()) {
                 displayInvalidLetters();
             }
@@ -51,7 +51,7 @@ public class Game {
                 }
             }
         }
-        System.out.print("Lettres invalides : |");
+        System.out.print(i18n.getMessage("invalid_letters_tried") + " : |");
         for(Character c : letterUsed){
             System.out.print(" "+c+" |");
         }
@@ -59,11 +59,11 @@ public class Game {
     }
 
     private void displayGameResult() {
-        System.out.println("Le mot à deviner était : " + this.wordToGuess);
+        System.out.println(i18n.getMessage("word_to_guess_was" ,this.wordToGuess));
         if (this.isWin()) {
-            System.out.println("Bien joué vous avez trouvé en " + this.roundResults.size() + " essai(s) !!");
+            System.out.println(i18n.getMessage("victory", this.roundResults.size()));
         } else {
-            System.out.println("Dommage, la prochaine fois vous y arriverez !!");
+            System.out.println(i18n.getMessage("fail"));
         }
         for (RoundResult r : this.roundResults) {
             System.out.println(this.displayer.format(r, false));

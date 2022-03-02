@@ -10,7 +10,7 @@ public abstract class AbstractI18n implements I18n {
     protected final Set<String> dictionary = new HashSet<>();
 
     public AbstractI18n(ResourceBundle res) throws FileNotFoundException {
-        this.resBundle = ResourceBundle.getBundle("messages", new Locale("en", "US"));
+        this.resBundle = res;
         this.loadDictionnary();
     }
 

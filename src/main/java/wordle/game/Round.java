@@ -22,16 +22,16 @@ public class Round {
         String tryGuess;
         boolean valid;
         do {
-            System.out.println("Essayez de deviner le mot de " + this.wordToGuess.length() + " lettres");
+            System.out.println(i18n.getMessage("try_to_guess", this.wordToGuess.length()));
             tryGuess = this.scanner.next().toUpperCase();
 
             valid =true;
             if(tryGuess.length() != this.wordToGuess.length()) {
-                System.out.println("Votre mot fait " + tryGuess.length() + " lettres");
+                System.out.println(i18n.getMessage("nb_letters_word_try", tryGuess.length()));
                 valid = false;
             }
             else if(!i18n.wordExists(tryGuess)) {
-                System.out.println("Ce mot n'est pas présent dans le dictionnaire");
+                System.out.println(i18n.getMessage("word_not_in_dictionary"));
                 valid = false;
             }
         } while (!valid);

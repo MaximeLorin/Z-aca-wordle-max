@@ -12,10 +12,14 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws Exception {
         // Launch params
-        String language = args[0];
-
-        // Get i18n resources
-        I18n i18n = I18nFactory.getI18n(language);
+        I18n i18n;
+        try {
+            String language = args[0];
+            // Get i18n resources
+            i18n = I18nFactory.getI18n(language);
+        } catch (Exception e) {
+            throw new Exception("Can't initialize app.\nBe sure to add arg with language among 'FR' or 'EN'");
+        }
         Scanner scanner = new Scanner(System.in);
         ConsoleColorDisplayer consoleColorDisplayer = new ConsoleColorDisplayer();
 
@@ -25,8 +29,8 @@ public class Main {
             Game game = new Game(i18n, scanner, consoleColorDisplayer);
             game.play();
 
-            System.out.println("Voulez-vous relancer une partie (y/n) ?");
-            stop = scanner.next().equalsIgnoreCase("N");
+            System.out.println(i18n.getMessage("would_you_replay"));
+            stop = scanner.next().equalsIgnoreCase(i18n.getMessage("no"));
         }
     }
 }
