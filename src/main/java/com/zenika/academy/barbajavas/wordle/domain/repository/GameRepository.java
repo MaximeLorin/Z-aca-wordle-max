@@ -1,0 +1,19 @@
+package com.zenika.academy.barbajavas.wordle.domain.repository;
+
+import com.zenika.academy.barbajavas.wordle.domain.model.Game;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
+public class GameRepository {
+    private Map<String, Game> games = new HashMap<>();
+    
+    public void save(Game game) {
+        this.games.put(game.getTid(), game);
+    }
+    
+    public Optional<Game> findByTid(String tid) {
+        return Optional.ofNullable(games.get(tid));
+    }
+}
