@@ -1,18 +1,24 @@
 package com.zenika.academy.barbajavas.wordle.application;
 
 import com.zenika.academy.barbajavas.wordle.domain.model.Game;
+import com.zenika.academy.barbajavas.wordle.domain.model.GameState;
 import com.zenika.academy.barbajavas.wordle.domain.repository.GameRepository;
 import com.zenika.academy.barbajavas.wordle.domain.service.BadLengthException;
 import com.zenika.academy.barbajavas.wordle.domain.service.DictionaryService;
+import com.zenika.academy.barbajavas.wordle.domain.service.GameFinishedException;
 import com.zenika.academy.barbajavas.wordle.domain.service.IllegalWordException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
+@Component
 public class GameManager {
     
     private final DictionaryService dictionaryService;
     private final GameRepository gameRepository;
 
+    @Autowired
     public GameManager(DictionaryService dictionaryService, GameRepository gameRepository) {
         this.dictionaryService = dictionaryService;
         this.gameRepository = gameRepository;
@@ -24,7 +30,7 @@ public class GameManager {
         return game;
     }
     
-    public Game attempt(String gameTid, String word) throws IllegalWordException, BadLengthException {
+    public Game attempt(String gameTid, String word) throws IllegalWordException, BadLengthException, GameFinishedException {
         Game game = gameRepository.findByTid(gameTid)
                 .orElseThrow(() -> new IllegalArgumentException("This game does not exist"));
         
@@ -33,6 +39,9 @@ public class GameManager {
         }
         if(word.length() != game.getWordLength()) {
             throw new BadLengthException();
+        }
+        if(game.getGameState() != GameState.IN_PROGRESS) {
+            throw new GameFinishedException();
         }
         
         game.guess(word);

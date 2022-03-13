@@ -3,7 +3,9 @@ package com.zenika.academy.barbajavas.wordle.domain.service.displayer.console.co
 import com.zenika.academy.barbajavas.wordle.domain.model.RoundResult;
 import com.zenika.academy.barbajavas.wordle.domain.model.ValidationLetter;
 import com.zenika.academy.barbajavas.wordle.domain.service.displayer.Displayer;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ConsoleColorDisplayer implements Displayer {
 
     @Override
