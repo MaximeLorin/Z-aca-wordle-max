@@ -2,13 +2,30 @@ package com.zenika.academy.barbajavas.wordle.domain.model;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 public record RoundResult(char[] letters, ValidationLetter[] validationLetters) {
     public boolean isWin() {
         return Arrays.stream(this.validationLetters)
                 .allMatch((v) -> v == ValidationLetter.GOOD_POSITION);
+    }
+    
+    public Set<Character> invalidLetters() {
+        Set<Character> invalidLetters = new HashSet<>();
+        for (int i = 0; i < validationLetters.length; i++) {
+            if(validationLetters[i] == ValidationLetter.NOT_IN_WORD) {
+                invalidLetters.add(letters[i]);
+            }
+        }
+        for (int i = 0; i < validationLetters.length; i++) {
+            if(validationLetters[i] != ValidationLetter.NOT_IN_WORD) {
+                invalidLetters.remove(letters[i]);
+            }
+        }
+        return invalidLetters;
     }
 
     public static RoundResult fromGuess(String wordToGuess, String userInput) {

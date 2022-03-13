@@ -2,10 +2,13 @@ package com.zenika.academy.barbajavas.wordle.domain.model;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Set;
+
 import static com.zenika.academy.barbajavas.wordle.domain.model.ValidationLetter.GOOD_POSITION;
 import static com.zenika.academy.barbajavas.wordle.domain.model.ValidationLetter.NOT_IN_WORD;
 import static com.zenika.academy.barbajavas.wordle.domain.model.ValidationLetter.WRONG_POSITION;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -19,6 +22,7 @@ public class RoundResultTest {
         RoundResult result = RoundResult.fromGuess(word, guess);
 
         assertTrue(result.isWin());
+        assertEquals(Set.of(), result.invalidLetters());
         assertArrayEquals("CRANE".toCharArray(), result.letters());
         assertArrayEquals(
                 new ValidationLetter[]{
@@ -40,6 +44,7 @@ public class RoundResultTest {
         RoundResult result = RoundResult.fromGuess(word, guess);
 
         assertFalse(result.isWin());
+        assertEquals(Set.of('I'), result.invalidLetters());
         assertArrayEquals("CRIER".toCharArray(), result.letters());
         assertArrayEquals(
                 new ValidationLetter[]{
@@ -62,6 +67,7 @@ public class RoundResultTest {
 
         assertFalse(result.isWin());
         assertArrayEquals("OCCIR".toCharArray(), result.letters());
+        assertEquals(Set.of('I', 'O'), result.invalidLetters());
         assertArrayEquals(
                 new ValidationLetter[]{
                         NOT_IN_WORD,

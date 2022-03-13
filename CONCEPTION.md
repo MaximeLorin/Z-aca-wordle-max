@@ -68,6 +68,7 @@ classDiagram
         +getRoundResults() List~RoundResult~
         +attempt(word)
         +getWord()
+        +getInvalidLetters() char[]
     }
     
     class RoundResult {

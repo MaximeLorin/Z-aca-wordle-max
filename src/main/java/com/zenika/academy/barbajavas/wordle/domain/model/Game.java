@@ -3,6 +3,8 @@ package com.zenika.academy.barbajavas.wordle.domain.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Game {
     private final String tid;
@@ -49,5 +51,11 @@ public class Game {
     
     public String getWord() {
         return this.getGameState() == GameState.IN_PROGRESS ? "?" : this.word;
+    }
+    
+    public Set<Character> getInvalidLetters() {
+        return this.roundResults.stream()
+                .flatMap(rr -> rr.invalidLetters().stream())
+                .collect(Collectors.toSet());
     }
 }
