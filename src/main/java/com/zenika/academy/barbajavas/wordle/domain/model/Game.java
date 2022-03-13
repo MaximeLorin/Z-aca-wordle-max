@@ -7,14 +7,14 @@ import java.util.List;
 public class Game {
     private final String tid;
     private final String word;
-    private final int nbRounds;
+    private final int maxAttempts;
     private final List<RoundResult> roundResults;
 
-    public Game(String tid, String word, int nbRounds) {
+    public Game(String tid, String word, int maxAttempts) {
         this.tid = tid;
         this.word = word;
-        this.nbRounds = nbRounds;
-        this.roundResults = new ArrayList<>(nbRounds);
+        this.maxAttempts = maxAttempts;
+        this.roundResults = new ArrayList<>(maxAttempts);
     }
 
     public String getTid() {
@@ -22,7 +22,7 @@ public class Game {
     }
 
     public int getAttemptsLeft() {
-        return this.nbRounds - this.roundResults.size();
+        return this.maxAttempts - this.roundResults.size();
     }
 
     public GameState getGameState() {
@@ -31,7 +31,7 @@ public class Game {
         } else if (roundResults.get(roundResults.size() - 1).isWin()) {
             return GameState.WIN;
         } else {
-            return roundResults.size() < nbRounds ? GameState.IN_PROGRESS : GameState.LOSS;
+            return roundResults.size() < maxAttempts ? GameState.IN_PROGRESS : GameState.LOSS;
         }
     }
 

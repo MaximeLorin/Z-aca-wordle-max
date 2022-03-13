@@ -7,12 +7,12 @@ sequenceDiagram
     participant GM as GameManager
     participant DS as DictionaryService
     participant GR as GameRepository
-    M->>+GM: createGame(lang)
+    M->>+GM: createGame(wordLength, maxAttempts)
     GM->>DS: getRandomWord(lang)
     DS->>GM: 
-    GM->>GM: new Game(lang, word, maxTry)
+    GM->>GM: new Game(word, maxAttemps)
     GM->>GR: save(newGame)
-    GM->>-M: Game ID
+    GM->>-M: newGame
 ```
 
 ### 2. Faire un essai
@@ -27,9 +27,10 @@ sequenceDiagram
     M->>+GM: attemptWord(gameId, word)
     GM->>GR: findById(gameId)
     GR->>GM: 
-    GM->>G: game.getLang()
+    GM->>G: game.getWordLength()
     G->>GM: 
     GM->>DS: wordExists(lang, word) ?
+    GM->>GM: word has right length ?
     GM->>G: game.attempt(word)
     GM->>GR: save(game)
     GM->>-M: game
@@ -66,6 +67,7 @@ classDiagram
         +getGameState() GameState
         +getRoundResults() List~RoundResult~
         +attempt(word)
+        +getWord()
     }
     
     class RoundResult {
@@ -80,10 +82,10 @@ classDiagram
         IN_PROGRESS
     }
     
-    class ValidationResult{
+    class ValidationLetter{
         <<enumeration>>
-        WIN
-        LOSS
-        IN_PROGRESS
+        GOOD_POSITION
+        WRONG_POSITION
+        NOT_IN_WORD
     }
 ```
