@@ -1,9 +1,11 @@
 package com.zenika.academy.barbajavas.wordle.domain.service;
 
 import com.zenika.academy.barbajavas.wordle.domain.service.i18n.I18n;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
+@Profile("local-dictionary")
 public class I18nDictionaryService implements DictionaryService {
     
     private final I18n i18n;

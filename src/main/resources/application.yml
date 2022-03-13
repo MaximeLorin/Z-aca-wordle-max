@@ -4,3 +4,4 @@ server:
 
 wordle:
   language: FR
+  scrabble-api-uri: 'https://scrabble-api.fly.dev/api'
