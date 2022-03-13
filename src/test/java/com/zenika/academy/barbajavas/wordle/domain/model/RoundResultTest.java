@@ -59,6 +59,28 @@ public class RoundResultTest {
     }
 
     @Test
+    public void doubleLettersOtherOrder() {
+        String word = "FUTON";
+        String guess = "TOTAL";
+
+        RoundResult result = RoundResult.fromGuess(word, guess);
+
+        assertFalse(result.isWin());
+        assertEquals(Set.of('A', 'L'), result.invalidLetters());
+        assertArrayEquals("TOTAL".toCharArray(), result.letters());
+        assertArrayEquals(
+                new ValidationLetter[]{
+                        NOT_IN_WORD,
+                        WRONG_POSITION,
+                        GOOD_POSITION,
+                        NOT_IN_WORD,
+                        NOT_IN_WORD
+                },
+                result.validationLetters()
+        );
+    }
+
+    @Test
     public void doubleLettersBothWrong() {
         String word = "CRANE";
         String guess = "OCCIR";

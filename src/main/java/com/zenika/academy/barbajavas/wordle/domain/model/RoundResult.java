@@ -34,12 +34,21 @@ public record RoundResult(char[] letters, ValidationLetter[] validationLetters) 
         final Map<Character, Integer> wordHistogram = computeHistogram(wordToGuess);
 
         ValidationLetter[] validationLetters = new ValidationLetter[wordToGuess.length()];
+        // First pass for good letters
+        for (int i = 0; i < userInputLetters.length; i++) {
+            final char curLetter = userInputLetters[i];
+            if (curLetter == wordToGuessLetters[i]) {
+                validationLetters[i] = ValidationLetter.GOOD_POSITION;
+                wordHistogram.computeIfPresent(curLetter, (k, v) -> v-1);
+            }
+        }
+        
+        // Second pass for wrong positions and bad letters
         for (int i = 0; i < userInputLetters.length; i++) {
             final char curLetter = userInputLetters[i];
             final String curLetterString = String.valueOf(curLetter);
             if (curLetter == wordToGuessLetters[i]) {
-                validationLetters[i] = ValidationLetter.GOOD_POSITION;
-                wordHistogram.computeIfPresent(curLetter, (k, v) -> v-1);
+                // Do nothing, already set during first pass
             } else if (wordToGuess.contains(curLetterString) && wordHistogram.get(curLetter) > 0) {
                 validationLetters[i] = ValidationLetter.WRONG_POSITION;
                 wordHistogram.computeIfPresent(curLetter, (k, v) -> v-1);
