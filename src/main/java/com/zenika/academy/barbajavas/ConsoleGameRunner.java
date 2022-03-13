@@ -17,7 +17,7 @@ import static com.zenika.academy.barbajavas.wordle.domain.model.GameState.IN_PRO
 import static com.zenika.academy.barbajavas.wordle.domain.model.GameState.WIN;
 
 @Component
-@Profile("!test")
+@Profile({"!test & cli"})
 public class ConsoleGameRunner implements CommandLineRunner {
     private final Scanner scanner;
     private final GameManager gameManager;

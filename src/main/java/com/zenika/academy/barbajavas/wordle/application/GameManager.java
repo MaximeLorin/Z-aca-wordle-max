@@ -10,6 +10,7 @@ import com.zenika.academy.barbajavas.wordle.domain.service.IllegalWordException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -49,5 +50,9 @@ public class GameManager {
         gameRepository.save(game);
         
         return game;
+    }
+    
+    public Optional<Game> getGame(String gameTid) {
+        return gameRepository.findByTid(gameTid);
     }
 }

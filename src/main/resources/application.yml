@@ -1,2 +1,6 @@
+server:
+  servlet:
+    context-path: "/api"
+
 wordle:
   language: FR
