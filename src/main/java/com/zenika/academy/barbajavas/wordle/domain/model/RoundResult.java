@@ -28,9 +28,11 @@ public record RoundResult(char[] letters, ValidationLetter[] validationLetters) 
         return invalidLetters;
     }
 
-    public static RoundResult fromGuess(String wordToGuess, String userInput) {
-        char[] userInputLetters = userInput.toUpperCase(Locale.ROOT).toCharArray();
-        char[] wordToGuessLetters = wordToGuess.toUpperCase(Locale.ROOT).toCharArray();
+    public static RoundResult fromGuess(String rawWordToGuess, String rawUserInput) {
+        String wordToGuess = rawWordToGuess.toUpperCase(Locale.ROOT);
+        String userInput = rawUserInput.toUpperCase(Locale.ROOT);
+        char[] userInputLetters = userInput.toCharArray();
+        char[] wordToGuessLetters = wordToGuess.toCharArray();
         final Map<Character, Integer> wordHistogram = computeHistogram(wordToGuess);
 
         ValidationLetter[] validationLetters = new ValidationLetter[wordToGuess.length()];

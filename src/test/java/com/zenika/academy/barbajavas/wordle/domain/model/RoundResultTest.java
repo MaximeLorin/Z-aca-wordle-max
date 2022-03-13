@@ -101,4 +101,27 @@ public class RoundResultTest {
                 result.validationLetters()
         );
     }
+
+    @Test
+    public void bugFix() {
+        String word = "supiez";
+        String guess = "BRONZE";
+
+        RoundResult result = RoundResult.fromGuess(word, guess);
+
+        assertFalse(result.isWin());
+        assertEquals(Set.of('B', 'R', 'O', 'N'), result.invalidLetters());
+        assertArrayEquals("BRONZE".toCharArray(), result.letters());
+        assertArrayEquals(
+                new ValidationLetter[]{
+                        NOT_IN_WORD,
+                        NOT_IN_WORD,
+                        NOT_IN_WORD,
+                        NOT_IN_WORD,
+                        WRONG_POSITION,
+                        WRONG_POSITION
+                },
+                result.validationLetters()
+        );
+    }
 }
