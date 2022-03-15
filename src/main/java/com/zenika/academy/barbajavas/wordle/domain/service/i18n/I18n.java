@@ -1,5 +1,8 @@
 package com.zenika.academy.barbajavas.wordle.domain.service.i18n;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public interface I18n {
 
     String getMessage(String key);

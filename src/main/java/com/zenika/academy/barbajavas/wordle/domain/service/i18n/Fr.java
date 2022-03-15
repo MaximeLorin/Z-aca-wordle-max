@@ -1,5 +1,8 @@
 package com.zenika.academy.barbajavas.wordle.domain.service.i18n;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.Normalizer;
@@ -7,9 +10,9 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Scanner;
-
+@Component
 public class Fr extends AbstractI18n {
-
+    @Autowired
     public Fr() throws FileNotFoundException {
         super(ResourceBundle.getBundle("messages", new Locale("fr", "FR")));
     }

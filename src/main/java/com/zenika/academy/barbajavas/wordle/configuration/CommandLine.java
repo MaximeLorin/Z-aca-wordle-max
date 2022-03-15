@@ -3,6 +3,7 @@ package com.zenika.academy.barbajavas.wordle.configuration;
 import com.zenika.academy.barbajavas.wordle.application.GameManager;
 import com.zenika.academy.barbajavas.wordle.domain.model.Game;
 import com.zenika.academy.barbajavas.wordle.domain.service.BadLengthException;
+import com.zenika.academy.barbajavas.wordle.domain.service.I18nDictionaryService;
 import com.zenika.academy.barbajavas.wordle.domain.service.IllegalWordException;
 import com.zenika.academy.barbajavas.wordle.domain.service.displayer.console.color.ConsoleColorDisplayer;
 import com.zenika.academy.barbajavas.wordle.domain.service.i18n.I18n;
@@ -20,16 +21,8 @@ import static com.zenika.academy.barbajavas.wordle.domain.model.GameState.WIN;
 @Configuration
 public class CommandLine {
     @Bean
-    public CommandLineRunner commandLineRunner(GameManager gameManager, ConsoleColorDisplayer consoleColorDisplayer) {
+    public CommandLineRunner commandLineRunner(GameManager gameManager, ConsoleColorDisplayer consoleColorDisplayer, I18n i18n) {
         return args -> {
-            I18n i18n;
-            try {
-                String language = args[0];
-                // Get i18n resources
-                i18n = I18nFactory.getI18n(language);
-            } catch (Exception e) {
-                throw new Exception("Can't initialize app.\nBe sure to add arg with language among 'FR' or 'EN'");
-            }
             Scanner scanner = new Scanner(System.in);
             boolean stop = false;
             while (!stop) {
