@@ -10,14 +10,19 @@ import com.zenika.academy.barbajavas.wordle.domain.service.IllegalWordException;
 import com.zenika.academy.barbajavas.wordle.domain.service.displayer.console.color.ConsoleColorDisplayer;
 import com.zenika.academy.barbajavas.wordle.domain.service.i18n.I18n;
 import com.zenika.academy.barbajavas.wordle.domain.service.i18n.I18nFactory;
-
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.util.Scanner;
 
 import static com.zenika.academy.barbajavas.wordle.domain.model.GameState.IN_PROGRESS;
 import static com.zenika.academy.barbajavas.wordle.domain.model.GameState.WIN;
 
+@SpringBootApplication
 public class WordleApplication {
     public static void main(String[] args) throws Exception {
+
+        SpringApplication.run(WordleApplication.class, args);
+
         // Initialisation des objets
         I18n i18n;
         try {
