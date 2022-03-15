@@ -3,14 +3,12 @@ package com.zenika.academy.barbajavas.wordle.configuration;
 import com.zenika.academy.barbajavas.wordle.application.GameManager;
 import com.zenika.academy.barbajavas.wordle.domain.model.Game;
 import com.zenika.academy.barbajavas.wordle.domain.service.BadLengthException;
-import com.zenika.academy.barbajavas.wordle.domain.service.I18nDictionaryService;
 import com.zenika.academy.barbajavas.wordle.domain.service.IllegalWordException;
 import com.zenika.academy.barbajavas.wordle.domain.service.displayer.console.color.ConsoleColorDisplayer;
 import com.zenika.academy.barbajavas.wordle.domain.service.i18n.I18n;
-import com.zenika.academy.barbajavas.wordle.domain.service.i18n.I18nFactory;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
-import com.zenika.academy.barbajavas.wordle.configuration.AppConfiguration;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Scanner;
