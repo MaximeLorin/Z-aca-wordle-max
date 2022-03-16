@@ -25,7 +25,7 @@ public class CommandLine {
         return args -> {
             Scanner scanner = new Scanner(System.in);
             GetScrabbleDictionary getScrabbleDictionary= new GetScrabbleDictionary(new RestTemplateBuilder());
-            System.out.println(getScrabbleDictionary.getHttpRequest());
+            System.out.println(getScrabbleDictionary.getHttpRequest("fr",5));
 
             boolean stop = false;
             while (!stop) {

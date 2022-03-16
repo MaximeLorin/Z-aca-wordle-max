@@ -5,6 +5,7 @@ import com.zenika.academy.barbajavas.wordle.domain.repository.GameRepository;
 import com.zenika.academy.barbajavas.wordle.domain.service.BadLengthException;
 import com.zenika.academy.barbajavas.wordle.domain.service.DictionaryService;
 import com.zenika.academy.barbajavas.wordle.domain.service.IllegalWordException;
+import com.zenika.academy.barbajavas.wordle.domain.service.online.GetScrabbleDictionary;
 
 import java.util.UUID;
 
@@ -12,10 +13,12 @@ public class GameManager {
     
     private final DictionaryService dictionaryService;
     private final GameRepository gameRepository;
+    private final GetScrabbleDictionary getScrabbleDictionary;
 
-    public GameManager(DictionaryService dictionaryService, GameRepository gameRepository) {
+    public GameManager(DictionaryService dictionaryService, GameRepository gameRepository,GetScrabbleDictionary getScrabbleDictionary) {
         this.dictionaryService = dictionaryService;
         this.gameRepository = gameRepository;
+        this.getScrabbleDictionary=getScrabbleDictionary;
     }
 
     public Game startNewGame(int wordLength, int nbAttempts) {

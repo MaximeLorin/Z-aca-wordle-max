@@ -7,6 +7,7 @@ import com.zenika.academy.barbajavas.wordle.domain.service.displayer.console.col
 import com.zenika.academy.barbajavas.wordle.domain.service.i18n.I18n;
 import com.zenika.academy.barbajavas.wordle.domain.service.i18n.I18nFactory;
 
+import com.zenika.academy.barbajavas.wordle.domain.service.online.GetScrabbleDictionary;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,7 +31,7 @@ public class AppConfiguration {
     }
 
     @Bean
-    public GameManager gameManagerConfig(GameRepository gameRepository,DictionaryService dictionaryService){
-        return new GameManager(dictionaryService,gameRepository);
+    public GameManager gameManagerConfig(GameRepository gameRepository, DictionaryService dictionaryService, GetScrabbleDictionary getScrabbleDictionary){
+        return new GameManager(dictionaryService,gameRepository,getScrabbleDictionary);
     }
 }
