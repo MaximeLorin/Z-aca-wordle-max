@@ -13,15 +13,7 @@ public class ApiError {
         return errorNum;
     }
 
-    public void setErrorNum(int errorNum) {
-        this.errorNum = errorNum;
-    }
-
     public String getErrorMsg() {
         return errorMsg;
-    }
-
-    public void setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg;
     }
 }

@@ -3,23 +3,19 @@ package com.zenika.academy.barbajavas.wordle.domain.controller;
 import com.zenika.academy.barbajavas.wordle.application.GameManager;
 import com.zenika.academy.barbajavas.wordle.domain.model.Game;
 
-import com.zenika.academy.barbajavas.wordle.domain.repository.GameRepository;
 import com.zenika.academy.barbajavas.wordle.domain.service.BadLengthException;
 import com.zenika.academy.barbajavas.wordle.domain.service.IllegalWordException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
 public class GameController{
     GameManager gameManager;
-    GameRepository gameRepository;
 
-    public GameController(GameManager gameManager, GameRepository gameRepository) {
+    public GameController(GameManager gameManager) {
         this.gameManager=gameManager;
-        this.gameRepository=gameRepository;
     }
 
     @GetMapping("/games")
@@ -35,11 +31,10 @@ public class GameController{
     @PostMapping("/games/{gameTid}")
     public Game tryGame(@PathVariable(value="gameTid")String gameTid, @RequestBody Map<String, String> body) throws BadLengthException, IllegalWordException {
         return gameManager.attempt(gameTid,body.get("guess"));
-
     }
 
     @GetMapping("/games/{gameTid}")
-    public Optional<Game> getGame(@PathVariable(value="gameTid")String gameTid){
-        return gameRepository.findByTid(gameTid);
+    public Game getGame(@PathVariable(value="gameTid")String gameTid){
+        return gameManager.gameByTid(gameTid);
     }
 }

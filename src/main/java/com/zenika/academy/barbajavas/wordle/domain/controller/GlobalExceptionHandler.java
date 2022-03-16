@@ -40,7 +40,6 @@ public class GlobalExceptionHandler {
         if (HttpStatus.INTERNAL_SERVER_ERROR.equals(status)) {
             request.setAttribute(WebUtils.ERROR_EXCEPTION_ATTRIBUTE, e, WebRequest.SCOPE_REQUEST);
         }
-
         return new ResponseEntity<>(o, headers, status);
     }
 

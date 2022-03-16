@@ -6,6 +6,7 @@ import com.zenika.academy.barbajavas.wordle.domain.service.BadLengthException;
 import com.zenika.academy.barbajavas.wordle.domain.service.DictionaryService;
 import com.zenika.academy.barbajavas.wordle.domain.service.IllegalWordException;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public class GameManager {
@@ -23,7 +24,12 @@ public class GameManager {
         gameRepository.save(game);
         return game;
     }
-    
+
+    public Game gameByTid(String tid) {
+        return gameRepository.findByTid(tid)
+                .orElseThrow(() -> new IllegalArgumentException("This game does not exist"));
+    }
+
     public Game attempt(String gameTid, String word) throws IllegalWordException, BadLengthException {
         Game game = gameRepository.findByTid(gameTid)
                 .orElseThrow(() -> new IllegalArgumentException("This game does not exist"));
