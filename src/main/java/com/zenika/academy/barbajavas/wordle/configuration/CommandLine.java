@@ -7,7 +7,9 @@ import com.zenika.academy.barbajavas.wordle.domain.service.IllegalWordException;
 import com.zenika.academy.barbajavas.wordle.domain.service.displayer.console.color.ConsoleColorDisplayer;
 import com.zenika.academy.barbajavas.wordle.domain.service.i18n.I18n;
 
+import com.zenika.academy.barbajavas.wordle.domain.service.online.GetScrabbleDictionary;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -22,6 +24,9 @@ public class CommandLine {
     public CommandLineRunner commandLineRunner(GameManager gameManager, ConsoleColorDisplayer consoleColorDisplayer, I18n i18n) {
         return args -> {
             Scanner scanner = new Scanner(System.in);
+            GetScrabbleDictionary getScrabbleDictionary= new GetScrabbleDictionary(new RestTemplateBuilder());
+            System.out.println(getScrabbleDictionary.getHttpRequest());
+
             boolean stop = false;
             while (!stop) {
                 System.out.println("Démarrer une partie : quelle longueur de mot ?");
