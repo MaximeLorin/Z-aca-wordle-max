@@ -1,12 +1,19 @@
 package com.zenika.academy.barbajavas.wordle.game;
 
 import com.zenika.academy.barbajavas.wordle.application.GameManager;
+import com.zenika.academy.barbajavas.wordle.domain.model.Game;
+import com.zenika.academy.barbajavas.wordle.domain.service.BadLengthException;
+import com.zenika.academy.barbajavas.wordle.domain.service.IllegalWordException;
 import com.zenika.academy.barbajavas.wordle.domain.service.displayer.console.color.ConsoleColorDisplayer;
 import com.zenika.academy.barbajavas.wordle.domain.service.i18n.I18n;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+
+import java.util.Scanner;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -22,8 +29,18 @@ public class GameTest {
     ConsoleColorDisplayer consoleColorDisplayer;
 
     @Test
-    void testGameSuccessFirstRound() {
+    void testGameSuccessFirstRound() throws BadLengthException, IllegalWordException {
 
+        int length=5;
+        int attempts=5;
+
+        Game game = gameManager.startNewGame(length,attempts);
+        String guess = "mange";
+
+        game= gameManager.attempt(game.getTid(),guess);
+
+        String expect= game.getWord();
+        assertEquals(expect,guess);
     }
 
     @Test

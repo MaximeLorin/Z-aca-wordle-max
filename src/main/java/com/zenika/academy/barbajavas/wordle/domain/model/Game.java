@@ -1,5 +1,7 @@
 package com.zenika.academy.barbajavas.wordle.domain.model;
 
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -18,6 +20,7 @@ public class Game {
         this.maxAttempts = maxAttempts;
         this.roundResults = new ArrayList<>(maxAttempts);
     }
+
 
     public String getTid() {
         return this.tid;
