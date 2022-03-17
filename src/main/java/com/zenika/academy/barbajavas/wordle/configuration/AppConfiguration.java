@@ -1,5 +1,6 @@
 package com.zenika.academy.barbajavas.wordle.configuration;
 
+import com.zenika.academy.barbajavas.wordle.domain.model.Game;
 import com.zenika.academy.barbajavas.wordle.domain.repository.GameRepository;
 import com.zenika.academy.barbajavas.wordle.domain.service.DictionaryService;
 import com.zenika.academy.barbajavas.wordle.application.GameManager;
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AppConfiguration {
+
     @Bean
     public ConsoleColorDisplayer consoleColorDisplayerConfig(){
         return new ConsoleColorDisplayer();
@@ -30,8 +32,9 @@ public class AppConfiguration {
         return new GameRepository();
     }
 
-    @Bean
-    public GameManager gameManagerConfig(GameRepository gameRepository, DictionaryService dictionaryService, GetScrabbleDictionary getScrabbleDictionary){
-        return new GameManager(dictionaryService,gameRepository,getScrabbleDictionary);
-    }
+//    @Bean
+//    public GameManager gameManagerConfig(GameRepository gameRepository, GetScrabbleDictionary getScrabbleDictionary){
+//        return new GameManager(getScrabbleDictionary,gameRepository);
+//    }
+
 }

@@ -28,20 +28,20 @@ public class GameTest {
     @Autowired
     ConsoleColorDisplayer consoleColorDisplayer;
 
-    @Test
-    void testGameSuccessFirstRound() throws BadLengthException, IllegalWordException {
-
-        int length=5;
-        int attempts=5;
-
-        Game game = gameManager.startNewGame(length,attempts);
-        String guess = "mange";
-
-        game= gameManager.attempt(game.getTid(),guess);
-
-        String expect= game.getWord();
-        assertEquals(expect,guess);
-    }
+//    @Test
+//    void testGameSuccessFirstRound() throws BadLengthException, IllegalWordException {
+//
+//        int length=5;
+//        int attempts=5;
+//
+//        Game game = gameManager.startNewGame(length,attempts);
+//        String guess = "mange";
+//
+//        game= gameManager.attempt(game.getTid(),guess);
+//
+//        String expect= game.getWord();
+//        assertEquals(expect,guess);
+//    }
 
     @Test
     void testGameSuccessFirstRoundButFirstTryNotInDictionary() {

@@ -1,2 +1,3 @@
 wordle:
   language: "FR"
+  type: "online"

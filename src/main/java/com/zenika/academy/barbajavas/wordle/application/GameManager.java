@@ -1,33 +1,35 @@
 package com.zenika.academy.barbajavas.wordle.application;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.zenika.academy.barbajavas.wordle.domain.model.Game;
 import com.zenika.academy.barbajavas.wordle.domain.repository.GameRepository;
 import com.zenika.academy.barbajavas.wordle.domain.service.BadLengthException;
 import com.zenika.academy.barbajavas.wordle.domain.service.DictionaryService;
 import com.zenika.academy.barbajavas.wordle.domain.service.IllegalWordException;
-import com.zenika.academy.barbajavas.wordle.domain.service.online.GetScrabbleDictionary;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
-
+@Component
 public class GameManager {
     
     private final DictionaryService dictionaryService;
-    private final GameRepository gameRepository;
-    private final GetScrabbleDictionary getScrabbleDictionary;
+    protected final GameRepository gameRepository;
 
-    public GameManager(DictionaryService dictionaryService, GameRepository gameRepository,GetScrabbleDictionary getScrabbleDictionary) {
+    @Autowired
+    public GameManager(DictionaryService dictionaryService, GameRepository gameRepository) {
         this.dictionaryService = dictionaryService;
         this.gameRepository = gameRepository;
-        this.getScrabbleDictionary=getScrabbleDictionary;
     }
 
-    public Game startNewGame(int wordLength, int nbAttempts) {
+    public Game startNewGame(int wordLength, int nbAttempts) throws JsonProcessingException {
         Game game = new Game(UUID.randomUUID().toString(), dictionaryService.getRandomWord(wordLength), nbAttempts);
         gameRepository.save(game);
         return game;
     }
     
-    public Game attempt(String gameTid, String word) throws IllegalWordException, BadLengthException {
+    public Game attempt(String gameTid, String word) throws IllegalWordException, BadLengthException, JsonProcessingException {
         Game game = gameRepository.findByTid(gameTid)
                 .orElseThrow(() -> new IllegalArgumentException("This game does not exist"));
         

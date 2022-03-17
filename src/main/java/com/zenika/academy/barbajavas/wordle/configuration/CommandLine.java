@@ -2,17 +2,22 @@ package com.zenika.academy.barbajavas.wordle.configuration;
 
 import com.zenika.academy.barbajavas.wordle.application.GameManager;
 import com.zenika.academy.barbajavas.wordle.domain.model.Game;
+import com.zenika.academy.barbajavas.wordle.domain.repository.GameRepository;
 import com.zenika.academy.barbajavas.wordle.domain.service.BadLengthException;
+import com.zenika.academy.barbajavas.wordle.domain.service.DictionaryService;
+import com.zenika.academy.barbajavas.wordle.domain.service.I18nDictionaryService;
 import com.zenika.academy.barbajavas.wordle.domain.service.IllegalWordException;
 import com.zenika.academy.barbajavas.wordle.domain.service.displayer.console.color.ConsoleColorDisplayer;
 import com.zenika.academy.barbajavas.wordle.domain.service.i18n.I18n;
 
 import com.zenika.academy.barbajavas.wordle.domain.service.online.GetScrabbleDictionary;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
 import java.util.Scanner;
 
 import static com.zenika.academy.barbajavas.wordle.domain.model.GameState.IN_PROGRESS;
@@ -21,11 +26,12 @@ import static com.zenika.academy.barbajavas.wordle.domain.model.GameState.WIN;
 @Configuration
 public class CommandLine {
     @Bean
-    public CommandLineRunner commandLineRunner(GameManager gameManager, ConsoleColorDisplayer consoleColorDisplayer, I18n i18n) {
+    public CommandLineRunner commandLineRunner(GameManager gameManager, GameRepository gameRepository, ConsoleColorDisplayer consoleColorDisplayer, I18n i18n) {
         return args -> {
             Scanner scanner = new Scanner(System.in);
-            GetScrabbleDictionary getScrabbleDictionary= new GetScrabbleDictionary(new RestTemplateBuilder());
-            System.out.println(getScrabbleDictionary.getHttpRequest("fr",5));
+
+            System.out.println("Quel dictionnaire voulez-vous utiliser ?\n 1-Local   2-Online");
+            int gameType = Integer.parseInt(scanner.nextLine());
 
             boolean stop = false;
             while (!stop) {
@@ -45,8 +51,7 @@ public class CommandLine {
                         game = gameManager.attempt(game.getTid(), guess);
                     } catch (IllegalWordException e) {
                         System.out.println(i18n.getMessage("word_not_in_dictionary"));
-                    }
-                    catch (BadLengthException e) {
+                    } catch (BadLengthException e) {
                         System.out.println(i18n.getMessage("nb_letters_word_try", game.getWordLength()));
                     }
                 }
@@ -57,6 +62,7 @@ public class CommandLine {
                 System.out.println(i18n.getMessage("would_you_replay"));
                 stop = scanner.nextLine().trim().equalsIgnoreCase(i18n.getMessage("no"));
             }
+
         };
     }
 }

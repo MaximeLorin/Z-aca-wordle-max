@@ -1,5 +1,6 @@
 package com.zenika.academy.barbajavas.wordle.domain.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.zenika.academy.barbajavas.wordle.application.GameManager;
 import com.zenika.academy.barbajavas.wordle.domain.model.Game;
 
@@ -22,18 +23,18 @@ public class GameController{
         this.gameRepository=gameRepository;
     }
 
-    @GetMapping("/games")
-    public String test(){
-        return "POEI Validée !!!";
-    }
+//    @GetMapping("/games")
+//    public String test(){
+//        return "POEI Validée !!!";
+//    }
 
     @PostMapping("/games")
-    public Game game(@RequestParam(value = "wordLength", defaultValue = "0") int wordLength,@RequestParam(value = "maxAttempt", defaultValue = "0") int maxAttempt){
+    public Game game(@RequestParam(value = "wordLength", defaultValue = "0") int wordLength,@RequestParam(value = "maxAttempt", defaultValue = "0") int maxAttempt) throws JsonProcessingException {
         return gameManager.startNewGame(wordLength, maxAttempt);
     }
 
     @PostMapping("/games/{gameTid}")
-    public Game tryGame(@PathVariable(value="gameTid")String gameTid, @RequestBody Map<String, String> body) throws BadLengthException, IllegalWordException {
+    public Game tryGame(@PathVariable(value="gameTid")String gameTid, @RequestBody Map<String, String> body) throws BadLengthException, IllegalWordException, JsonProcessingException {
         return gameManager.attempt(gameTid,body.get("guess"));
 
     }

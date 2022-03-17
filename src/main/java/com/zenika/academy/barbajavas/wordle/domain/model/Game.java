@@ -1,5 +1,6 @@
 package com.zenika.academy.barbajavas.wordle.domain.model;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
